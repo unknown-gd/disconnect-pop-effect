@@ -12,7 +12,7 @@ if (SERVER) then
         fx:SetOrigin( pos )
         fx:SetScale( 10 )
         fx:SetStart( ply:GetPlayerColor() * 255 )
-        util.Effect( "balloon_pop", fx )
+        util.Effect( "balloon_pop", fx, true, true )
 
         local rf = RecipientFilter()
         rf:AddPVS( pos )
