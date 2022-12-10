@@ -1,2 +1,2 @@
-# gmod_disconnect_pop_effect
- 
+# Disconnect Pop Effect
+Players pop like balloons when they disconnect from the server
