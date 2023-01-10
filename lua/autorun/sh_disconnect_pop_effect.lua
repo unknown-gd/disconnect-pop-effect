@@ -1,8 +1,9 @@
 if game.SinglePlayer() then return end
+local addonName = 'Disconnect Effect - Balloon Pop'
 
 /*
 
-    Title: The Balloon Pop Player Disconnect Effect
+    Title: Disconnect Effect - Balloon Pop
     GitHub: https://github.com/PrikolMen/gmod_disconnect_pop_effect
     Authors: Klen-list & PrikolMen:-b
 
@@ -10,18 +11,16 @@ if game.SinglePlayer() then return end
 
 if (SERVER) then
 
-    util.AddNetworkString( "balloon_pop_achievement" )
+    util.AddNetworkString( addonName )
 
     local player_GetCount = player.GetCount
-    local RecipientFilter = RecipientFilter
     local util_IsInWorld = util.IsInWorld
     local util_Effect = util.Effect
+    local net_SendPVS = net.SendPVS
     local EffectData = EffectData
     local net_Start = net.Start
-    local net_Send = net.Send
-    local ipairs = ipairs
 
-    hook.Add("PlayerDisconnected", "Player Disconnect Effect: POP", function( ply )
+    hook.Add('PlayerDisconnected', addonName, function( ply )
         if ply:IsListenServerHost() then return end
         if (player_GetCount() < 2) then return end
 
@@ -31,19 +30,14 @@ if (SERVER) then
             fx:SetOrigin( pos )
             fx:SetScale( 10 )
             fx:SetStart( ply:GetPlayerColor() * 255 )
-            util_Effect( "balloon_pop", fx, true, true )
-
-            local rf = RecipientFilter()
-            rf:AddPVS( pos )
-            for num, pl in ipairs( rf:GetPlayers() ) do
-                net_Start( "balloon_pop_achievement" )
-                net_Send( pl )
-            end
+            util_Effect( 'balloon_pop', fx, true, true )
+            net_Start( addonName )
+            net_SendPVS( pos )
         end
     end)
 
 end
 
 if (CLIENT) then
-    net.Receive( "balloon_pop_achievement", achievements.BalloonPopped )
+    net.Receive( addonName, achievements.BalloonPopped )
 end
