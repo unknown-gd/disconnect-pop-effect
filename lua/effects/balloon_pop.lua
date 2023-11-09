@@ -7,7 +7,7 @@ local Angle = Angle
 
 local particlesCount = 32
 local texture = "particles/balloon_bit"
-local sound_path = "garrysmod/balloon_pop_cute.wav"
+local sound_path = Sound( "garrysmod/balloon_pop_cute.wav" )
 
 function EFFECT:Init( data )
 	local pos = data:GetOrigin()
