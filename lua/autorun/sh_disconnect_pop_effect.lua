@@ -22,7 +22,7 @@ if SERVER then
         if ply:IsListenServerHost() then return end
         if player_GetCount() < 2 then return end
 
-        local pos = ply:LocalToWorld( ply:OBBCenter() )
+        local pos = ply:WorldSpaceCenter()
         if not util.IsInWorld( pos ) then return end
 
         local fx = EffectData()
